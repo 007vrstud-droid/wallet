@@ -41,9 +41,9 @@ public class WalletService {
         log.debug("Пессимистическая транзакция удалась");
     }
 
-    public WalletInfoDTO getWalletInfo(UUID id) {
+    public WalletInfoResponse getWalletInfo(UUID id) {
         Wallet wallet = walletRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Кошелек не найден"));
-        return new WalletInfoDTO(wallet.getId(), wallet.getAmount());
+        return new WalletInfoResponse(wallet.getId(), wallet.getAmount());
     }
 }
