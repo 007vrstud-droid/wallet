@@ -1,1 +1,16 @@
-spring.application.name=Wallet
+spring:
+  application:
+    name: wallet
+
+  main:
+    banner-mode: off
+
+  liquibase:
+    enabled: true
+    change-log: classpath:changelog-master.yaml
+
+  datasource:
+    url: jdbc:postgresql://localhost:5532/walletdb
+    username: app
+    password: password
+    driver-class-name: org.postgresql.Driver

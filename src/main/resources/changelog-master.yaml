@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: serge
+      changes:
+        - sql: |
+            CREATE TABLE wallets (
+              id UUID PRIMARY KEY,
+              amount NUMERIC(15, 2) NOT NULL DEFAULT 0.00,
+              version BIGINT NOT NULL DEFAULT 0
+            );
