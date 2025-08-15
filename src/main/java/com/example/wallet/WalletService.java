@@ -1,0 +1,49 @@
+package com.example.wallet;
+
+import jakarta.persistence.OptimisticLockException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.UUID;
+
+@Service
+@RequiredArgsConstructor
+@Slf4j
+public class WalletService {
+
+    private static final int MAX_OPTIMISTIC_RETRIES = 3;
+
+    private final TransferService transferService;
+    private final WalletRepository walletRepository;
+
+    public void transferWithRetry(TransferRequest transferRequest) {
+        int retries = MAX_OPTIMISTIC_RETRIES;
+        while (retries > 0) {
+            try {
+                transferService.attemptTransfer(transferRequest, Strategy.OPTIMISTIC);
+                log.debug("Оптимистическая транзакция прошла успешно");
+                return;
+            } catch (OptimisticLockException e) {
+                retries--;
+                log.warn("Оптимистическая транзакция не прошла, еще попыток {}", retries);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    throw new RuntimeException("Операция прервана", ie);
+                }
+            }
+        }
+
+        log.debug("Пессимистическая блокировка");
+        transferService.attemptTransfer(transferRequest, Strategy.PESSIMISTIC);
+        log.debug("Пессимистическая транзакция удалась");
+    }
+
+    public WalletInfoDTO getWalletInfo(UUID id) {
+        Wallet wallet = walletRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Кошелек не найден"));
+        return new WalletInfoDTO(wallet.getId(), wallet.getAmount());
+    }
+}

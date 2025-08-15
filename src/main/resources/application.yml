@@ -17,3 +17,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+
+logging:
+  level:
+    org.example.wallet: debug
