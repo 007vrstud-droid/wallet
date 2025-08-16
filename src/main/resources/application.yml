@@ -10,7 +10,7 @@ spring:
     change-log: classpath:changelog-master.yaml
 
   datasource:
-    url: jdbc:postgresql://localhost:5532/walletdb
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/walletdb
     username: app
     password: password
     driver-class-name: org.postgresql.Driver
