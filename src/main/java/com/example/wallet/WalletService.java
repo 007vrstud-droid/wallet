@@ -12,13 +12,12 @@ import java.util.UUID;
 @Slf4j
 public class WalletService {
 
-    private static final int MAX_OPTIMISTIC_RETRIES = 3;
-
     private final TransferService transferService;
     private final WalletRepository walletRepository;
+    private final WalletProperties walletProperties;
 
     public void transferWithRetry(TransferRequest transferRequest) {
-        int retries = MAX_OPTIMISTIC_RETRIES;
+        int retries = walletProperties.getMaxOptimisticRetries();
         while (retries > 0) {
             try {
                 transferService.attemptTransfer(transferRequest, Strategy.OPTIMISTIC);

@@ -22,3 +22,6 @@ spring:
 logging:
   level:
     org.example.wallet: debug
+
+wallet:
+  max-optimistic-retries: 3

@@ -15,9 +15,9 @@ public class TransferService {
 
     @Transactional
     public void attemptTransfer(TransferRequest transferRequest, Strategy strategy) {
-        UUID id = transferRequest.getId();
-        BigDecimal amount = transferRequest.getAmount();
-        OperationType operationType = transferRequest.getOperationType();
+        UUID id = transferRequest.id();
+        BigDecimal amount = transferRequest.amount();
+        OperationType operationType = transferRequest.operationType();
 
         Wallet wallet = switch (strategy) {
             case PESSIMISTIC -> walletRepository.findByIdLock(id)
