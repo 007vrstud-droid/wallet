@@ -1,5 +1,6 @@
 package com.example.wallet;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,9 @@ public class WalletController {
     }
 
     @GetMapping("/wallets/{id}")
-    public ResponseEntity<WalletInfoResponse> getWalletInfo(@PathVariable UUID id) {
+    public ResponseEntity<WalletInfoResponse> getWalletInfo(
+            @Parameter(description = "UUID кошелька", example = "bce99cfe-2e42-4813-80dd-5c1cb41b7b4a")
+            @PathVariable UUID id) {
         WalletInfoResponse walletInfoResponse = walletService.getWalletInfo(id);
         return ResponseEntity.ok(walletInfoResponse);
     }

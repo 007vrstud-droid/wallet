@@ -19,7 +19,7 @@ public class DatabaseInitializer implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         if (walletRepository.count() == 0) {
             Wallet wallet = new Wallet();
-            wallet.setId(UUID.randomUUID());
+            wallet.setId(UUID.fromString("bce99cfe-2e42-4813-80dd-5c1cb41b7b4a"));
             wallet.setAmount(BigDecimal.valueOf(1000));
             wallet.setVersion(0L);
             walletRepository.save(wallet);
