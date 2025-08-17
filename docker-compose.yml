@@ -18,7 +18,7 @@ services:
       - 8090:8080
 
   wallet-api:
-    image: 'wallet:latest'
+    image: 'leroidumonde007/wallet:latest'
     depends_on:
       - postgres
     restart: always
