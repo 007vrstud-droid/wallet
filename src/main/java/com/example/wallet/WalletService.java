@@ -1,5 +1,6 @@
 package com.example.wallet;
 
+import com.example.wallet.Exception.WalletNotFoundException;
 import jakarta.persistence.OptimisticLockException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +43,7 @@ public class WalletService {
 
     public WalletInfoResponse getWalletInfo(UUID id) {
         Wallet wallet = walletRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Кошелек не найден"));
+                .orElseThrow(() -> new WalletNotFoundException(id));
         return new WalletInfoResponse(wallet.getId(), wallet.getAmount());
     }
 }
