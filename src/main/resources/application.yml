@@ -10,18 +10,18 @@ spring:
     change-log: classpath:changelog-master.yaml
 
   datasource:
-    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/walletdb
-    username: app
-    password: password
+    url: ${SPRING_DATASOURCE_URL}jdbc:postgresql://${DB_HOST}:${DB_PORT}/walletdb
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: validate
     open-in-view: false
 
+wallet:
+  max-optimistic-retries: ${WALLET_MAX_OPTIMISTIC_RETRIES:3}
+
 logging:
   level:
     org.example.wallet: debug
-
-wallet:
-  max-optimistic-retries: 3

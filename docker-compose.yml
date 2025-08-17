@@ -25,5 +25,7 @@ services:
     ports:
       - "8081:8080"
     environment:
-      DB_HOST: postgres
-      DB_PORT: 5432
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/walletdb
+      SPRING_DATASOURCE_USERNAME: app
+      SPRING_DATASOURCE_PASSWORD: password
+      WALLET_MAX_OPTIMISTIC_RETRIES: 3
