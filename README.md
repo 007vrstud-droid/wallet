@@ -7,6 +7,8 @@
 * **Docker**
 * **Docker Compose**
 
+# k6 run script.js
+
 ---
 
 ##  Инструкция по запуску
